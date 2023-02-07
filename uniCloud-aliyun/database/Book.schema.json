@@ -1,0 +1,45 @@
+{
+	"bsonType": "object",//固定节点
+	"required": ["book_name"],//必填字段
+	"permission": {//权限
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true,
+		"count": true
+	},
+	"properties": {//表字段
+		"_id": {
+			"description": "作品ID，系统自动生成"
+		},
+		"book_picture": {
+			"bsonType": "string",
+			"description": "封面图片",
+			"trim": "both"
+		},
+		"book_name": {
+			"bsonType": "string",
+			"description": "作品名称"
+		},
+		"book_span": {
+			"bsonType": "string",
+			"description": "作品标签（分类）"
+		},
+		"book_author": {
+			"bsonType": "string",
+			"description": "作者"
+		},
+		"book_ctime": {
+			"bsonType": "timestamp",
+			"description": "创建时间"
+		},
+		"sys_user": {
+			"bsonType": "string",
+			"description": "修改人"
+		},
+		"sys_time": {
+			"bsonType": "timestamp",
+			"description": "修改时间"
+		}
+	}
+}

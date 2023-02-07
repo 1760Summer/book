@@ -1,0 +1,49 @@
+{
+	"bsonType": "object",
+	"required": ["article_name"],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"book_id":{
+			"bsonType": "string",
+			"foreignKey": "Book._id",
+			"description": "外键，关联Book表"
+		},
+		"parent_id": {
+			"bsonType": "string",
+			"parentKey": "_id",
+			"description": "父级，为空是分卷，有id是章节"
+		},
+		"article_name": {
+			"bsonType": "string",
+			"description": "文章名称"
+		},
+		"article_content":{
+			"bsonType": "string",
+			"description": "文章内容"
+		},
+		"article_number":{
+			"bsonType": "int",
+			"description": "文章字数"
+		},
+		"article_ctime": {
+			"bsonType": "timestamp",
+			"description": "创建时间"
+		},
+		"sys_user": {
+			"bsonType": "string",
+			"description": "修改人"
+		},
+		"sys_time": {
+			"bsonType": "timestamp",
+			"description": "修改时间"
+		}
+	}
+}

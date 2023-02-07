@@ -1,0 +1,81 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+		"path": "pages/HomePage/bookshelf",
+		"style": {
+			"navigationBarTitleText": "我的书架"
+		}
+	},{
+		"path": "pages/HomePage/aubook",
+		"style": {
+			"navigationBarTitleText": "作品新增/修改"
+		}
+	},{
+		"path": "pages/HomePage/bookdetail",
+		"style": {
+			"navigationBarTitleText": "作品详情"
+		}
+	},{
+		"path": "pages/Find/index",
+		"style": {
+			"navigationBarTitleText": "广场"
+		}
+	},{
+		"path": "pages/Collection/index",
+		"style": {
+			"navigationBarTitleText": "我的收藏"
+		}
+	},{
+		"path": "pages/My/index",
+		"style": {
+			"navigationBarTitleText": "我的主页"
+		}
+	}    ,{
+            "path" : "pages/HomePage/bookdetail/bookdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"tabBar": {
+		"color": "#7a7e83",
+		"selectedColor": "#0faeff",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/HomePage/bookshelf",
+			"text": "首页",
+			"iconPath": "static/img/home.png",
+			"selectedIconPath": "static/img/homeHL.png"
+		},{
+			"pagePath": "pages/Find/index",
+			"text": "发现",
+			"iconPath": "static/img/home.png",
+			"selectedIconPath": "static/img/homeHL.png"
+		},{
+			"pagePath": "pages/Collection/index",
+			"text": "收藏",
+			"iconPath": "static/img/home.png",
+			"selectedIconPath": "static/img/homeHL.png"
+		}, {
+			"pagePath": "pages/My/index",
+			"text": "我的",
+			"iconPath": "static/img/user.png",
+			"selectedIconPath": "static/img/userHL.png"
+		}]
+	},
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
+}

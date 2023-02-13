@@ -49,23 +49,24 @@
 </template>
 
 <script>
+	import DelPicture from "../../common/util.js";
 	export default{
 		data(){
 			return{
 				list: [],
 				showpopup: false,
 				_id: '',
+				index: '',
 			}
 		},
 		onLoad(){
-			//this.GetMyCreated();
+			this.GetMyCreated();
 		},
 		methods: {
 			//长按弹出
 			LongPress(index){
-				console.log(123)
-				console.log("长按"+index)
 				this.showpopup = true;
+				this.index = index;
 				this._id = this.list[index]._id._value
 			},
 			//关闭弹出层
@@ -92,7 +93,7 @@
 			DelBook(){
 				this.showpopup = false;
 				uni.showModal({
-					title: "谨慎操作：",
+					title: "谨慎操作",
 					content: "请确认是否删除该作品？",
 					showCancel: true,
 					success:(res)=>{
@@ -104,11 +105,11 @@
 									_id: this._id
 								}
 							}).then(res=>{
-								console.log(res)
 								uni.showToast({
 									title: '删除成功！',
 									icon: 'success'
 								})
+								DelPicture.DelPicture('Book','delpicture',this.list[this.index].book_picture)
 								this.GetMyCreated()
 							})
 						}

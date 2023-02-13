@@ -32,15 +32,7 @@
 		"style": {
 			"navigationBarTitleText": "我的主页"
 		}
-	}    ,{
-            "path" : "pages/HomePage/bookdetail/bookdetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+	}  
     ],
 	"tabBar": {
 		"color": "#7a7e83",

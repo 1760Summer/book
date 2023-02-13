@@ -75,6 +75,16 @@ exports.main = async (event, context) => {
 		}catch(e){
 			console.log(e)
 		}
+	}else if(event.type=="delpicture"){
+		//删除云储存图片
+		try{
+			const res = await uniCloud.deleteFile({
+				fileList: [event.fileID]
+			})
+			return res
+		}catch(e){
+			console.log(e)
+		}
 	}
 	//return event;
 };

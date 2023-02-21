@@ -1,0 +1,9 @@
+{
+  "name": "Article",
+  "dependencies": {
+    "vk-unicloud-api-time": "file:../../../uni_modules/vk-unicloud-api-time/uniCloud/cloudfunctions/common/vk-unicloud-api-time"
+  },
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

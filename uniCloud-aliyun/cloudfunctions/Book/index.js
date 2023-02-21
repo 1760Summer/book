@@ -24,9 +24,8 @@ exports.main = async (event, context) => {
 	}else if(event.type=="selbyauthor"){
 		//根据作者查询作品
 		try{
-			const book = db.collection('Book').getTemp()
+			const book = db.collection('Book').where({book_author:event.book_author}).getTemp()
 			const res = await db.collection(book,'Article')
-			.where({book_author:event.book_author})
 			.get()
 			return res
 		}catch(e){
@@ -35,8 +34,8 @@ exports.main = async (event, context) => {
 	}else if(event.type=="selbyid"){
 		//根据id查询作品
 		try{
-			const res = await db.collection('Book')
-			.doc(event._id)
+			const book = db.collection('Book').where({_id:event._id}).getTemp()
+			const res = await db.collection(book,'Article')
 			.get()
 			return res
 		}catch(e){

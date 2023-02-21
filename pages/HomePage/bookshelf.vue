@@ -2,8 +2,7 @@
 <template>
 	<view>
 		<!--导航栏-->
-		<u-navbar title="我的书架" leftIcon="" :placeholder="true"
-		bgColor="">
+		<u-navbar title="我的书架" leftIcon="" :placeholder="true" bgColor="">
 			<view slot="right" style="display: flex;">
 				<u-icon name="reload" size="22"></u-icon>
 				<u-icon name="plus" size="22" style="margin: 10px;" @click="AddBook"></u-icon>
@@ -15,7 +14,7 @@
 			<u-list @scrolltolower="LoadMore">
 				<u-list-item v-for="(item,index) in list" :key="index">
 					<view @longtap="LongPress(index)">
-						<u-cell @click="BookDetail">
+						<u-cell @click="BookDetail(index)">
 							<u-image slot="icon" :showLoading="true" width="80px" height="100px" 
 							:src="item.book_picture"></u-image>
 							<view slot="title" class="u-flex-column">
@@ -117,8 +116,11 @@
 				})
 			},
 			//作品详情页面
-			BookDetail(){
-				console.log("跳转至作品详情")
+			BookDetail(index){
+				this._id = this.list[index]._id._value
+				uni.navigateTo({
+					url: '/pages/HomePage/bookdetail?_id='+this._id
+				});
 			},
 			//查询我的作品
 			GetMyCreated(){

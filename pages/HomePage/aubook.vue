@@ -6,7 +6,7 @@
 		<!--表单-->
 		<view class="subPanel">
 			<u-form labelPosition="left" labelWidth="100":model="book" :rules="rules" ref="aubook">
-				<u-form-item label="封面" labelWidth="100" prop="book_name" ref="book_name">
+				<u-form-item label="封面" labelWidth="100" prop="book_picture" ref="book_picture">
 					<u-image :showLoading="true" :src="book.book_picture" width="80px" height="80px" @click="Upload"></u-image>
 				</u-form-item>
 				<u-form-item label="书名" labelWidth="100" prop="book_name" ref="book_name">
@@ -19,7 +19,7 @@
 					<u-input v-model="book.book_span"></u-input>
 				</u-form-item>
 			</u-form>
-			<u-button type="primary" @click="SaveBook">保存</u-button>
+			<u-button type="primary" @click="Check">保存</u-button>
 		</view>
 		
 	</view>
@@ -76,14 +76,17 @@
 					delete this.book._id//删除属性_id，修改不能带_id
 				})
 			},
-			//保存作品
-			SaveBook(){
-				//进行校验
+			//进行校验
+			Check(){
 				this.$refs.aubook.validate().then(res=>{
 					uni.$u.toast('校验通过')
+					this.SaveBook()
 				}).catch(errors => {
 					uni.$u.toast('校验失败')
 				})
+			},
+			//保存作品
+			SaveBook(){
 				if(this.type=="add"){
 					uniCloud.callFunction({
 						name:'Book',

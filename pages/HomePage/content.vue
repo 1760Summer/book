@@ -56,6 +56,7 @@
 					}
 				}).then(res=>{
 					this.article = res.result.data[0]
+					console.log(this.article)
 					delete this.article._id//删除属性_id，修改不能带_id
 					this.onEditorReady();
 				})

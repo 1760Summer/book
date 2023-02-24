@@ -30,7 +30,7 @@
 			"description": "作者"
 		},
 		"book_ctime": {
-			"bsonType": "timestamp",
+			"bsonType": "string",
 			"description": "创建时间"
 		},
 		"sys_user": {
@@ -38,7 +38,7 @@
 			"description": "修改人"
 		},
 		"sys_time": {
-			"bsonType": "timestamp",
+			"bsonType": "string",
 			"description": "修改时间"
 		}
 	}

@@ -44,8 +44,8 @@ exports.main = async (event, context) => {
 	}else if(event.type=="add"){
 		//新增作品
 		try{
-			//var now = vk.pubfn.getFullTime(new Date())
-			//event.book.book_ctime = now;//创建时间赋值
+			var now = vk.pubfn.getFullTime(new Date())
+			event.book.book_ctime = now;//创建时间赋值
 			const res = await db.collection('Book')
 			.add(event.book)
 			return res
@@ -55,8 +55,8 @@ exports.main = async (event, context) => {
 	}else if(event.type=="upd"){
 		//修改作品
 		try{
-			//var now = vk.pubfn.getFullTime(new Date())
-			//event.book.sys_time = now;//修改时间赋值
+			var now = vk.pubfn.getFullTime(new Date())
+			event.book.sys_time = now;//修改时间赋值
 			const res = await db.collection('Book')
 			.doc(event._id)
 			.update(event.book)

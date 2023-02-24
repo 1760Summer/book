@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
 		try{
 			const res = await db.collection('Article')
 			.where({book_id:event._id})
-			.orderBy(' _id desc')
+			.orderBy('article_ctime')
 			.get({getTree: true})
 			return res
 		}catch(e){
@@ -28,6 +28,8 @@ exports.main = async (event, context) => {
 	}else if(event.type=="add"){
 		//新建分卷/章节
 		try{
+			var now = vk.pubfn.getFullTime(new Date())
+			event.article.article_ctime = now;//创建时间赋值
 			const res = await db.collection('Article')
 			.add(event.article)
 			return res
@@ -37,6 +39,8 @@ exports.main = async (event, context) => {
 	}else if(event.type=="upd"){
 		//修改内容
 		try{
+			var now = vk.pubfn.getFullTime(new Date())
+			event.article.sys_time = now;//修改时间赋值
 			const res = await db.collection('Article')
 			.doc(event._id)
 			.update(event.article)

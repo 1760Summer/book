@@ -1,0 +1,45 @@
+{
+	"bsonType": "object",//固定节点
+	"required": ["user_name"],//必填字段
+	"permission": {//权限
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true,
+		"count": true
+	},
+	"properties": {//表字段
+		"_id": {
+			"description": "用户ID，系统自动生成"
+		},
+		"user_picture": {
+			"bsonType": "string",
+			"description": "头像",
+			"trim": "both"
+		},
+		"user_name": {
+			"bsonType": "string",
+			"description": "用户名"
+		},
+		"user_password": {
+			"bsonType": "string",
+			"description": "密码"
+		},
+		"user_tel": {
+			"bsonType": "string",
+			"description": "手机号"
+		},
+		"user_ctime": {
+			"bsonType": "string",
+			"description": "注册时间"
+		},
+		"sys_user": {
+			"bsonType": "string",
+			"description": "修改人"
+		},
+		"sys_time": {
+			"bsonType": "string",
+			"description": "修改时间"
+		}
+	}
+}

@@ -21,6 +21,10 @@
 			"parentKey": "_id",
 			"description": "父级，为空是分卷，有id是章节"
 		},
+		"article_type": {
+			"bsonType": "string",
+			"description": "文章分类"
+		},
 		"article_name": {
 			"bsonType": "string",
 			"description": "文章名称"

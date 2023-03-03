@@ -55,8 +55,8 @@
 						_id: id
 					}
 				}).then(res=>{
+					console.log(res)
 					this.article = res.result.data[0]
-					console.log(this.article)
 					delete this.article._id//删除属性_id，修改不能带_id
 					this.onEditorReady();
 				})
@@ -97,7 +97,6 @@
 			CountNumber(e){
 				this.article.article_number = e.detail.text.replace(/<\/?.+?\/?>|\r|\n|\s*/g,"").length
 				this.article.article_content = e.detail.html
-				console.log(this.article.article_content)
 			},
 			//更改样式
 			onStatusChange(e) {

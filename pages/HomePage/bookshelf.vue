@@ -38,10 +38,25 @@
 					<u-icon style="margin:10px 16px;" name="arrow-upward" size="30px" label="导出作品" labelSize="10px" labelPos="bottom"></u-icon>
 					<u-icon style="margin:10px 16px;" name="share" size="30px" label="发送作品" labelSize="10px" labelPos="bottom"></u-icon>
 					<u-icon style="margin:10px 16px;" name="share-square" size="30px" label="备份至云盘" labelSize="10px" labelPos="bottom"></u-icon>
-					<u-icon style="margin:10px 16px;" name="info-circle" size="30px" label="详细信息" labelSize="10px" labelPos="bottom"></u-icon>
+					<u-icon style="margin:10px 16px;" name="info-circle" size="30px" label="详细信息" labelSize="10px" labelPos="bottom" @click="Information"></u-icon>
 					<u-icon style="margin:10px 16px;" name="trash" size="30px" label="删除作品" labelColor="red"	labelSize="10px" labelPos="bottom"@click="DelBook"></u-icon>
 				</view>
 				<u-button text="取消" :plain="true" @click="PopupClose"></u-button>
+			</u-popup>
+		</view>
+		<!--详细信息-->
+		<view>
+			<u-popup :show="showpopup2" overlayOpacity="0.1" :round="10" mode="center" @close="PopupClose2">
+				<view style="width: auto;padding: 15px;">
+					<span style="text-align: center; font-weight: bold;">详细信息</span>
+					<span>作品：{{detail.book_name}}</span>
+					<span>作者：{{detail.book_author}}</span>
+					<span>分卷：{{detail.sub}}</span>
+					<span>章节：{{detail.art}}</span>
+					<span>总字数：{{detail.num}}</span>
+					<span>创建时间：{{detail.book_ctime}}</span>
+					<span>修改时间：{{detail.sys_time}}</span>
+				</view>
 			</u-popup>
 		</view>
 	</view>
@@ -54,8 +69,10 @@
 			return{
 				list: [],
 				showpopup: false,
+				showpopup2: false,
 				_id: '',
 				index: '',
+				detail:{}
 			}
 		},
 		onLoad(){
@@ -72,18 +89,23 @@
 			PopupClose(){
 				this.showpopup = false;
 			},
+			PopupClose2(){
+				this.showpopup2 = false;
+			},
 			//加载更多
 			LoadMore(){
 				
 			},
 			//新增作品
 			AddBook(){
+				this.showpopup = false;
 				uni.navigateTo({
 					url: '/pages/HomePage/aubook'
 				});
 			},
 			//修改作品
 			UpdateBook(){
+				this.showpopup = false;
 				uni.navigateTo({
 					url: '/pages/HomePage/aubook?_id='+this._id
 				});
@@ -114,6 +136,18 @@
 						}
 					}
 				})
+			},
+			//作品信息
+			Information(){
+				this.showpopup2=true;
+				this.showpopup=false;
+				this.detail.book_name = this.list[this.index].book_name
+				this.detail.book_author = this.list[this.index].book_author
+				this.detail.sub = this.list[this.index].sub
+				this.detail.art = this.list[this.index].art
+				this.detail.num = this.list[this.index].num
+				this.detail.book_ctime = this.list[this.index].book_ctime
+				this.detail.sys_time = this.list[this.index].sys_time
 			},
 			//作品详情页面
 			BookDetail(index){
@@ -147,8 +181,7 @@
 						this.list[i].art = count1
 						this.list[i].num = count2
 					}
-					//console.log(res)
-					//console.log(this.list)
+					console.log(this.list)
 				})
 			}
 		}

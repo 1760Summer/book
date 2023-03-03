@@ -10,17 +10,29 @@ exports.main = async (event, context) => {
 		//查询分卷与章节的上下结构
 		try{
 			const res = await db.collection('Article')
-			.where({book_id:event._id})
-			.orderBy('article_ctime')
+			.where({book_id:event._id}&&"article_type!='R'")
+			.orderBy('article_ctime asc')
 			.get({getTree: true})
 			return res
 		}catch(e){
 			console.log(e)
 		}
-	}else if(event.type=="selbyid"){
-		//根据id查询分卷/章节
+	}else if(event.type=="selrel"){
+		//根据id查相关
 		try{
-			const res = await db.collection('Article').doc(event._id).get()
+			const res = await db.collection('Article')
+			.where({book_id:event._id}&&"article_type=='R'")
+			.get()
+			return res
+		}catch(e){
+			console.log(e)
+		}
+	}else if(event.type=="selbyid"){
+		//根据id查询分卷/章节（content）
+		try{
+			const res = await db.collection('Article')
+			.where({_id:event._id})
+			.get()
 			return res
 		}catch(e){
 			console.log(e)

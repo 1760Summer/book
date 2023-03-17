@@ -19,7 +19,7 @@
 							:src="item.book_picture"></u-image>
 							<view slot="title" class="u-flex-column">
 								<span style="font-weight: bold;font-size: 18px;">{{item.book_name}}</span>
-								<span style="margin-top: 30px;">{{item.book_author}} 著</span>
+								<span style="margin-top: 30px;">{{item.author}} 著</span>
 								<span>{{item.sub}}卷{{item.art}}章</span>
 							</view>
 							<view slot="value" class="u-flex">
@@ -50,7 +50,7 @@
 				<view style="width: auto;padding: 15px;">
 					<span style="text-align: center; font-weight: bold;">详细信息</span>
 					<span>作品：{{detail.book_name}}</span>
-					<span>作者：{{detail.book_author}}</span>
+					<span>作者：{{detail.author}}</span>
 					<span>分卷：{{detail.sub}}</span>
 					<span>章节：{{detail.art}}</span>
 					<span>总字数：{{detail.num}}</span>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+	import {mapState,mapMutations} from 'vuex';
 	import DelPicture from "../../common/util.js";
 	export default{
 		data(){
@@ -74,6 +75,9 @@
 				index: '',
 				detail:{}
 			}
+		},
+		computed: {
+			...mapState(['hasLogin', 'userInfo'])
 		},
 		onLoad(){
 			this.GetMyCreated();
@@ -113,7 +117,7 @@
 			//删除作品
 			DelBook(){
 				this.showpopup = false;
-				uni.showModal({
+				uni.showModal({//此操作会连带删除作品下的分卷和章节，
 					title: "谨慎操作",
 					content: "请确认是否删除该作品？",
 					showCancel: true,
@@ -130,7 +134,7 @@
 									title: '删除成功！',
 									icon: 'success'
 								})
-								DelPicture.DelPicture('Book','delpicture',this.list[this.index].book_picture)
+								DelPicture.DelPicture('Book',this.list[this.index].book_picture)
 								this.GetMyCreated()
 							})
 						}
@@ -142,7 +146,7 @@
 				this.showpopup2=true;
 				this.showpopup=false;
 				this.detail.book_name = this.list[this.index].book_name
-				this.detail.book_author = this.list[this.index].book_author
+				this.detail.author = this.list[this.index].author
 				this.detail.sub = this.list[this.index].sub
 				this.detail.art = this.list[this.index].art
 				this.detail.num = this.list[this.index].num
@@ -162,9 +166,10 @@
 					name:'Book',
 					data:{
 						type: 'selbyauthor',
-						book_author: '小白'
+						book_author: this.userInfo._id
 					}
 				}).then(res=>{
+					console.log(res)
 					this.list = res.result.data
 					//统计分卷数、章节数、字数
 					for(var i=0;i<this.list.length;i++){
@@ -177,11 +182,11 @@
 								count3 ++;
 							}
 						}
+						this.list[i].author = this.list[i].book_author[0].user_name
 						this.list[i].sub = count3
 						this.list[i].art = count1
 						this.list[i].num = count2
 					}
-					console.log(this.list)
 				})
 			}
 		}

@@ -1,9 +1,9 @@
 //删除云储存的图片
-function DelPicture(func,type,picture) {
+function DelPicture(name,picture) {
 	uniCloud.callFunction({
-		name: func,
+		name: name,
 		data:{
-			type: type,
+			type: 'delpicture',
 			fileID: picture,
 		},
 		success: (res) => {

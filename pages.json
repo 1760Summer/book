@@ -33,9 +33,19 @@
 			"navigationBarTitleText": "我的收藏"
 		}
 	},{
-		"path": "pages/My/index",
+		"path": "pages/My/usercenter",
 		"style": {
 			"navigationBarTitleText": "我的主页"
+		}
+	},{
+		"path": "pages/My/login",
+		"style": {
+			"navigationBarTitleText": "注册/登录"
+		}
+	},{
+		"path": "pages/My/userinformation",
+		"style": {
+			"navigationBarTitleText": "用户信息"
 		}
 	}
 	],
@@ -59,7 +69,7 @@
 			"iconPath": "static/img/star.png",
 			"selectedIconPath": "static/img/starHL.png"
 		}, {
-			"pagePath": "pages/My/index",
+			"pagePath": "pages/My/usercenter",
 			"text": "我的",
 			"iconPath": "static/img/user.png",
 			"selectedIconPath": "static/img/userHL.png"

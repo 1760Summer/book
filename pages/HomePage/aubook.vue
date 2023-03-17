@@ -12,9 +12,6 @@
 				<u-form-item label="书名" labelWidth="100" prop="book_name" ref="book_name">
 					<u-input v-model="book.book_name"></u-input>
 				</u-form-item>
-				<u-form-item label="作者" labelWidth="100" prop="book_author" ref="book_author">
-					<u-input v-model="book.book_author"></u-input>
-				</u-form-item>
 				<u-form-item label="标签" labelWidth="100" prop="book_span" ref="book_span">
 					<u-input v-model="book.book_span"></u-input>
 				</u-form-item>
@@ -26,6 +23,7 @@
 </template>
 
 <script>
+	import {mapState,mapMutations} from 'vuex';
 	import DelPicture from "../../common/util.js"
 	export default{
 		data(){
@@ -49,6 +47,9 @@
 				},
 				errorType: 'message',
 			}
+		},
+		computed: {
+			...mapState(['hasLogin', 'userInfo'])
 		},
 		onLoad(option){
 			if(option._id==null){
@@ -87,6 +88,7 @@
 			},
 			//保存作品
 			SaveBook(){
+				this.book.book_author = this.userInfo._id
 				if(this.type=="add"){
 					uniCloud.callFunction({
 						name:'Book',
@@ -146,7 +148,7 @@
 								success(res){
 									//有图片时先删除之前的图片
 									if(_self.book.book_picture!=null&&_self.book.book_picture!=''&&_self.book.book_picture!=undefined){
-									    DelPicture.DelPicture('Book','delpicture',_self.book.book_picture)	
+									    DelPicture.DelPicture('Book',_self.book.book_picture)	
 									}
 									_self.book.book_picture = res.fileID
 								}

@@ -1,8 +1,22 @@
 <script>
+	import {mapState,mapMutations} from 'vuex';
 	export default {
+		methods: {
+			...mapMutations(['UserLogin']),
+		},
 		onLaunch: function() {
 			console.warn('当前组件仅支持 uni_modules 目录结构 ，请升级 HBuilderX 到 3.1.0 版本以上！')
 			console.log('App Launch')
+			//判断是否有保存的登录信息
+			let _self = this;
+			uni.getStorage({
+				key: 'userInfo',
+				success(res) {
+					if(res.data.user_tel){
+						_self.UserLogin(res.data)
+					}
+				}
+			})
 		},
 		onShow: function() {
 			console.log('App Show')

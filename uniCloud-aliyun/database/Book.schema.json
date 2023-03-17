@@ -27,7 +27,8 @@
 		},
 		"book_author": {
 			"bsonType": "string",
-			"description": "作者"
+			"foreignKey": "User._id",
+			"description": "外键，关联User表"
 		},
 		"book_ctime": {
 			"bsonType": "string",

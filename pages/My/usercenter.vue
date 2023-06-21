@@ -56,12 +56,17 @@
 		computed: {
 			...mapState(['hasLogin', 'userInfo'])
 		},
-		onLoad(){
+		onShow() {
 			this.IsLogin()
 		},
+		onLoad(){
+			
+		},
 		methods: {
+			...mapMutations(['UserLogin','UserLogout']),
 			//判断是否已登陆
 			IsLogin(){
+				var _self = this;
 				if(this.hasLogin){
 					this.icon=this.userInfo.user_picture
 					this.title=this.userInfo.user_name
@@ -91,7 +96,7 @@
 					name:'Book',
 					data:{
 						type: 'selbyauthor',
-						book_author: '小白'
+						book_author: this.userInfo._id
 					}
 				}).then(res=>{
 					this.list = res.result.data

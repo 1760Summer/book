@@ -60,5 +60,15 @@ exports.main = async (event, context) => {
 		}catch(e){
 			console.log(e)
 		}
+	}else if(event.type=="del"){
+		//删除章节(不要纠结联动删除了，现在做不到)
+		try{
+			const res = await db.collection('Article')
+			.doc(event._id)
+			.remove()
+			return res
+		}catch(e){
+			console.log(e)
+		}
 	}
 };

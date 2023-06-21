@@ -19,17 +19,17 @@
 		</view>
 		<!--修改密码弹窗-->
 		<u-popup :show="show" mode="center" :round="10" @close="Close">
-			<view>
+			<view class="subPanel">
 				<u-form labelPosition="left" labelWidth="100":model="user" :rules="rules" ref="subsection">
-					<span style="text-align: center; font-weight: bold;">修改密码</span>
-					<u-form-item prop="user_tel" ref="user_tel">
+					<span style="display: block;text-align: center; font-weight: bold;">修改密码</span>
+					<u-form-item label="手机号:" labelWidth="70" prop="user_tel" ref="user_tel">
 						<u-input border="bottom" v-model="user.user_tel" placeholder="请输入手机号"></u-input>
 					</u-form-item>
-					<u-form-item prop="user_password" ref="user_password">
-						<u-input border="bottom" v-model="user.user_password" placeholder="请输入密码"></u-input>
+					<u-form-item label="新密码:" labelWidth="70" prop="user_password" ref="user_password">
+						<u-input border="bottom" v-model="user.user_password" placeholder="请输入密码" :password="true"></u-input>
 					</u-form-item>
-					<u-form-item prop="password" ref="password">
-						<u-input border="bottom" v-model="password" placeholder="请确认密码"></u-input>
+					<u-form-item label="确认密码:" labelWidth="70"prop="password" ref="password">
+						<u-input border="bottom" v-model="password" placeholder="请确认密码" :password="true"></u-input>
 					</u-form-item>
 				</u-form>
 			</view>
@@ -64,12 +64,6 @@
 						type: 'string',
 						required: true,
 						message: '请输入密码',
-						trigger: ['blur', 'change']
-					},
-					'password': {
-						type: 'string',
-						required: true,
-						message: '请确认密码',
 						trigger: ['blur', 'change']
 					},
 				},
@@ -145,7 +139,34 @@
 			},
 			//修改密码
 			UpdatePassword(){
-				console.log(123)
+				this.show = true;
+			},
+			//确认
+			Check(){
+				if(this.password==this.user.user_password){
+					uniCloud.callFunction({
+						name: 'User',
+						data:{
+							type: 'updpassword',
+							user: this.user
+						}
+					}).then(res=>{
+						this.show = false;
+						uni.showToast({
+							title: '更新密码成功！',
+							icon: 'none'
+						})
+					})
+				}else{
+					uni.showToast({
+						title: '密码不一致！',
+						icon: 'none'
+					})
+				}
+			},
+			//取消
+			Close(){
+				this.show = false;
 			}
 		}
 	}

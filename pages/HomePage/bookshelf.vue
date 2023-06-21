@@ -9,6 +9,7 @@
 				<u-icon name="more-dot-fill" size="22"></u-icon>
 			</view>
 		</u-navbar>
+		<u-empty :show="showempty" mode="data" icon="http://cdn.uviewui.com/uview/empty/data.png" text="先去登录看看吧!"></u-empty>
 		<!--作品列表-->
 		<view>
 			<u-list @scrolltolower="LoadMore">
@@ -71,6 +72,7 @@
 				list: [],
 				showpopup: false,
 				showpopup2: false,
+				showempty: false,
 				_id: '',
 				index: '',
 				detail:{}
@@ -79,8 +81,17 @@
 		computed: {
 			...mapState(['hasLogin', 'userInfo'])
 		},
+		onShow() {
+			this.list = [];
+			if(this.userInfo._id==undefined){
+				this.showempty = true;
+			}else{
+				this.showempty = false;
+				this.GetMyCreated();
+			}
+		},
 		onLoad(){
-			this.GetMyCreated();
+			
 		},
 		methods: {
 			//长按弹出
@@ -117,9 +128,9 @@
 			//删除作品
 			DelBook(){
 				this.showpopup = false;
-				uni.showModal({//此操作会连带删除作品下的分卷和章节，
-					title: "谨慎操作",
-					content: "请确认是否删除该作品？",
+				uni.showModal({//此操作会连带删除作品下的分卷和章节（暂时做不到）
+					title: "删除作品",
+					content: "删除作品后不能恢复，请确认是否删除？",
 					showCancel: true,
 					success:(res)=>{
 						if(res.confirm){

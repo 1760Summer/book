@@ -8,21 +8,6 @@
 			"navigationBarTitleText": "我的书架"
 		}
 	},{
-		"path": "pages/HomePage/aubook",
-		"style": {
-			"navigationBarTitleText": "作品新增/修改"
-		}
-	},{
-		"path": "pages/HomePage/bookdetail",
-		"style": {
-			"navigationBarTitleText": "作品详情"
-		}
-	},{
-		"path": "pages/HomePage/content",
-		"style": {
-			"navigationBarTitleText": "章节详情"
-		}
-	},{
 		"path": "pages/Find/index",
 		"style": {
 			"navigationBarTitleText": "广场"
@@ -36,6 +21,21 @@
 		"path": "pages/My/usercenter",
 		"style": {
 			"navigationBarTitleText": "我的主页"
+		}
+	},{
+		"path": "pages/HomePage/aubook",
+		"style": {
+			"navigationBarTitleText": "作品新增/修改"
+		}
+	},{
+		"path": "pages/HomePage/bookdetail",
+		"style": {
+			"navigationBarTitleText": "作品详情"
+		}
+	},{
+		"path": "pages/HomePage/content",
+		"style": {
+			"navigationBarTitleText": "章节详情"
 		}
 	},{
 		"path": "pages/My/login",
@@ -68,7 +68,7 @@
 			"text": "收藏",
 			"iconPath": "static/img/star.png",
 			"selectedIconPath": "static/img/starHL.png"
-		}, {
+		},{
 			"pagePath": "pages/My/usercenter",
 			"text": "我的",
 			"iconPath": "static/img/user.png",

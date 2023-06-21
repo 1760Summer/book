@@ -38,7 +38,8 @@ exports.main = async (event, context) => {
 		try{
 			const book = db.collection('Book').where({_id:event._id}).getTemp()
 			const article = db.collection('Article').where("article_type!='R'").getTemp()
-			const res = await db.collection(book,article)
+			const user = db.collection('User').where({_id:event.book_author}).getTemp()
+			const res = await db.collection(book,user,article)
 			.get()
 			return res
 		}catch(e){

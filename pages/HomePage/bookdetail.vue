@@ -22,8 +22,8 @@
 		<!--作品章节-->
 		<u-subsection :list="list" :current="current" @change="SectionChange"></u-subsection>
 		<view id='page0' v-if="current==0">
-			<u-collapse  v-for="(item,index) in subart" :key="index">
-				<view @longtap="LongPressSub(index)">
+			<u-collapse v-for="(item,index) in subart" :key="index">
+				<view v-if="subart[index].article_type=='S'" @longtap="LongPressSub(index)">
 					<u-collapse-item :border="false" :title="item.article_name">
 					    <u-cell-group :border="false" v-for="(item2,index2) in subart[index].children" :key="index2">
 							<view @longtap="LongPressArt(index,index2)">
@@ -33,6 +33,9 @@
 							</view>
 					    </u-cell-group>
 					</u-collapse-item>
+				</view>
+				<view v-else @longtap="LongPressArt2(index)">
+					<u-cell :border="false" :title="subart[index].article_name" @click="GetContent3(index)"></u-cell>
 				</view>
 			</u-collapse>
 		</view>
@@ -66,7 +69,7 @@
 				<u-form labelPosition="left" labelWidth="100":model="article" :rules="rulesart" ref="article">
 					<span style="text-align: center; font-weight: bold;">新建章节</span>
 					<u-form-item label="选择分卷" labelWidth="70" prop="parent_id" ref="parent_id">
-						 <uni-data-select v-model="article.parent_id" :localdata="selectsub" placeholder="请选择分卷" @change="SelectSub"></uni-data-select>
+						 <uni-data-select v-model="article.parent_id" :localdata="selectsub" placeholder="未分卷" @change="SelectSub"></uni-data-select>
 					</u-form-item>
 					<u-form-item label="新章名称" labelWidth="70" prop="article_name" ref="article_name">
 						<u-input v-model="article.article_name" placeholder="请输入章节名称"></u-input>
@@ -211,7 +214,7 @@
 						message: '请选择分卷',
 						trigger: ['blur', 'change']
 					},
-				},
+				}
 			}
 		},
 		onLoad(option){
@@ -238,11 +241,11 @@
 					//统计分卷数、章节数、字数
 					var count1=0;var count2=0;var count3=0;
 					for(var i=0;i<this.book._id.Article.length;i++){
-						if(this.book._id.Article[i].parent_id!=null){//章节
-						    count1 ++;
+						if(this.book._id.Article[i].article_type=='S'){//分卷
+						    count3 ++;
+						}else{//章节
+							count1 ++;
 							count2 += this.book._id.Article[i].article_number
-						}else{//分卷
-							count3 ++;
 						}
 					}
 					this.book.author = this.book.book_author[0].user_name
@@ -257,6 +260,7 @@
 			},
 			//获取目录（分卷章节的上下级关系）
 			GetSubArticle(id){
+				console.log(id)
 				uniCloud.callFunction({
 					name: 'Article',
 					data:{
@@ -265,8 +269,11 @@
 					}
 				}).then(res=>{
 					this.subart = res.result.data
+					console.log("===>"+JSON.stringify(this.subart))
 					for(var i=0;i<this.subart.length;i++){
-						this.selectsub.push({value:this.subart[i]._id,text:this.subart[i].article_name})
+						if(this.subart[i].article_type=='S'){
+							this.selectsub.push({value:this.subart[i]._id,text:this.subart[i].article_name})
+						}
 					}
 				})
 			},
@@ -355,6 +362,22 @@
 					this.article.article_ctime = this.subart[index].children[index2].article_ctime
 					this.article.sys_time = this.subart[index].children[index2].sys_time
 					this.article.article_number = this.subart[index].children[index2].article_number
+				},200)
+			},
+			//长按未分卷章节
+			LongPressArt2(index){
+				this.showartlong = true;
+				setTimeout(()=>{//关闭会同时打开的长按分卷
+				    this.arttype = 'art'
+				    this.article = {}
+					this.showsublong = false;
+					this.article._id = this.subart[index]._id
+					this.article.book_id = this.subart[index].book_id
+					this.article.parent_id = this.subart[index].parent_id
+					this.article.article_name = this.subart[index].article_name
+					this.article.article_ctime = this.subart[index].article_ctime
+					this.article.sys_time = this.subart[index].sys_time
+					this.article.article_number = this.subart[index].article_number
 				},200)
 			},
 			//章节重命名
@@ -453,6 +476,13 @@
 			//点击章节
 			GetContent(index,index2){
 				var article_id = this.subart[index].children[index2]._id
+				uni.navigateTo({
+					url: '/pages/HomePage/content?_id='+article_id
+				});
+			},
+			//未分卷章节
+			GetContent3(index){
+				var article_id = this.subart[index]._id
 				uni.navigateTo({
 					url: '/pages/HomePage/content?_id='+article_id
 				});
@@ -562,6 +592,8 @@
 				this.CloseRel()
 				if(type=="rel"){
 					this.article.article_type = "R"
+				}else if(type=='sub'){
+					this.article.article_type = "S"
 				}
 				this.article.book_id = this._id
 				uniCloud.callFunction({

@@ -10,7 +10,7 @@
 	},{
 		"path": "pages/Find/index",
 		"style": {
-			"navigationBarTitleText": "广场"
+			"navigationBarTitleText": "发现"
 		}
 	},{
 		"path": "pages/Collection/index",

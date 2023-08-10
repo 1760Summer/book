@@ -27,4 +27,6 @@ const user = db.collection('User').where("_id=='64128a8df43e603fbe8a6d46'").fiel
 const article = db.collection('Article').where("article_type!='R'").getTemp()
 db.collection(book,user,article).get()
 db.collection('Article').where({_id:'63f02b1209e2987cee3bc715'}||{parent_id:'63f02b1209e2987cee3bc715'}).get()
-
+db.collection('Article').where('article_type!="R"&&book_id=="63e1a14b0c801c9d1bd967ee"').orderBy('article_ctime asc').get({getTree: true})
+db.collection('Article').where({book_id:'63e1a14b0c801c9d1bd967ee'}).orderBy('article_ctime asc').get({getTree: {startWith:"article_type!='R'&&(parent_id!=null||parent_id!=undefined||parent_id!='')"}})
+db.collection('Article').where({book_id:'649fc2eff43e6001c1fff60f'}).get()

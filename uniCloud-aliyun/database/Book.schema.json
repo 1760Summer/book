@@ -22,7 +22,7 @@
 			"description": "作品名称"
 		},
 		"book_span": {
-			"bsonType": "string",
+			"bsonType": "array",
 			"description": "作品标签（分类）"
 		},
 		"book_author": {

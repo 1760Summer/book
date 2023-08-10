@@ -58,7 +58,9 @@
 					console.log(res)
 					this.article = res.result.data[0]
 					delete this.article._id//删除属性_id，修改不能带_id
-					this.onEditorReady();
+					setTimeout(()=>{
+						this.onEditorReady();
+					},200)
 				})
 			},
 			//文本编辑器初始化

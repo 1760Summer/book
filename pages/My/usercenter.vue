@@ -104,7 +104,7 @@
 					var count1=0;var count2=0;
 					for(var i=0;i<this.list.length;i++){
 						for(var j=0;j<this.list[i]._id.Article.length;j++){
-							if(this.list[i]._id.Article[j].parent_id!=null){//章节
+							if(this.list[i]._id.Article[j].parent_id!=null&&this.list[i]._id.Article[j].parent_id!=""&&this.list[i]._id.Article[j].parent_id!=undefined){//章节
 							    count1 ++;
 								count2 += this.list[i]._id.Article[j].article_number
 							}

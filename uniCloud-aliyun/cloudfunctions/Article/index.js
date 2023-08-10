@@ -1,6 +1,6 @@
 'use strict';
 //创建连接(jql写法)
-var db = uniCloud.databaseForJQL()
+var db = uniCloud.databaseForJQL()//jql操作
 //公共模块
 const vk = {
 	pubfn : require('vk-unicloud-api-time')
@@ -10,9 +10,9 @@ exports.main = async (event, context) => {
 		//查询分卷与章节的上下结构
 		try{
 			const res = await db.collection('Article')
-			.where({book_id:event._id}&&"article_type!='R'")
+			.where({book_id:event._id})
 			.orderBy('article_ctime asc')
-			.get({getTree: true})
+			.get({getTree: {startWith:"article_type!='R'&&(parent_id==null||parent_id==undefined||parent_id=='')"}})
 			return res
 		}catch(e){
 			console.log(e)
@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
 		//根据id查相关
 		try{
 			const res = await db.collection('Article')
-			.where({book_id:event._id}&&"article_type=='R'")
+			.where({book_id:event._id,article_type:'R'})
 			.get()
 			return res
 		}catch(e){

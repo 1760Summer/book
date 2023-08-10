@@ -185,11 +185,11 @@
 					for(var i=0;i<this.list.length;i++){
 						var count1=0;var count2=0;var count3=0;
 						for(var j=0;j<this.list[i]._id.Article.length;j++){
-							if(this.list[i]._id.Article[j].parent_id!=null&&this.list[i]._id.Article[j].parent_id!=""&&this.list[i]._id.Article[j].parent_id!=undefined){//章节
-							    count1 ++;
+							if(this.list[i]._id.Article[j].article_type=='S'){//分卷
+							    count3 ++;
+							}else{//章节
+								count1 ++;
 								count2 += this.list[i]._id.Article[j].article_number
-							}else{//分卷
-								count3 ++;
 							}
 						}
 						this.list[i].author = this.list[i].book_author[0].user_name

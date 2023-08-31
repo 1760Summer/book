@@ -6,11 +6,11 @@
 			<view slot="right" style="display: flex;">
 				<span style="align-self: center;">{{article.article_number}}字</span>
 				<view class="iconfont icon-tongbu" @click="Synchronization"></view>
-				<view class="iconfont icon-book" style="font-weight: 900;"></view>
+				<!-- <view class="iconfont icon-book" style="font-weight: 900;"></view>
 				<view class="iconfont icon-Initial" style="font-weight: 900;"@click="TypeSet"></view>
 				<view class="iconfont icon-undo" @click="undo"></view>
-				<view class="iconfont icon-redo" @click="redo"></view>
-				<view class="iconfont icon-gengduo"></view>
+				<view class="iconfont icon-redo" @click="redo"></view> 
+				<view class="iconfont icon-gengduo"></view>-->
 			</view>
 		</u-navbar>
 		<!--文本编辑器 @confirm-->
@@ -18,7 +18,7 @@
 			<view class="page-body">
 				<view class='wrapper'>
 					<view class="editor-wrapper">
-						<editor id="editor" class="ql-container ql-editor" 
+						<editor id="editor" class="ql-container ql-editor"
 						@statuschange="onStatusChange" @input="CountNumber" @keydown.enter="TextIndent"></editor>
 					</view>
 				</view>
@@ -32,7 +32,6 @@
 		data() {
 			return{
 				_id: '',
-				readOnly: false,
 				formats: {},
 				article: {
 					article_name:'',
@@ -43,7 +42,9 @@
 		},
 		onLoad(option){
 			this._id = option._id;
-			this.GetArticle(option._id)
+		},
+		onShow(){
+			this.GetArticle(this._id)
 		},
 		methods: {
 			//获取章节内容
@@ -55,29 +56,30 @@
 						_id: id
 					}
 				}).then(res=>{
-					console.log(res)
 					this.article = res.result.data[0]
 					delete this.article._id//删除属性_id，修改不能带_id
-					setTimeout(()=>{
-						this.onEditorReady();
-					},200)
+					this.onEditorReady();
 				})
 			},
 			//文本编辑器初始化
-			onEditorReady(e){
-				var _self = this
+			onEditorReady(){
 				uni.createSelectorQuery().select('#editor').context((res) => {
 				    this.editorCtx = res.context
 					this.editorCtx.setContents({
-						html: _self.article.article_content
-					});
-					if(_self.article.article_content==""||_self.article.article_content==null
-					||_self.article.article_content==undefined||_self.article.article_content=="<p><br></p>"){
-						this.editorCtx.insertText({
-							text: "       "
-						})
-					}
+						html:this.article.article_content,
+							success:(res)=>{
+								console.log(res)
+							},
+							fail:(err)=>{
+								console.log(err)
+							}
+					})
 				}).exec()
+				if(this.article.article_content==""||this.article.article_content==null||this.article.article_content==undefined||this.article.article_content=="<p><br></p>"){
+					this.editorCtx.insertText({
+						text: "       "
+					})
+				}
 			},
 			//同步内容
 			Synchronization(e){

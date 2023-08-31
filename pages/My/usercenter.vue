@@ -1,6 +1,6 @@
 <!--用戶中心-->
 <template>
-	<view style="background-color: gainsboro;height: 100%;">
+	<view>
 		<!--导航栏-->
 		<u-navbar title="用户中心" leftIcon="" :placeholder="true" bgColor=""></u-navbar>
 		<!--用户-->
@@ -120,6 +120,9 @@
 </script>
 
 <style>
+	page {
+		background-color: gainsboro;
+	}
 	.transverse{
 		display: flex;
 		align-items: center;

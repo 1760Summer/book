@@ -17,6 +17,16 @@ exports.main = async (event, context) => {
 		}catch(e){
 			console.log(e)
 		}
+	}else if(event.type=="selart"){
+		//根据book_id只取章节
+		try{
+			const res = await db.collection('Article')
+			.where({book_id:event._id,article_type:'A'})
+			.get()
+			return res
+		}catch(e){
+			console.log(e)
+		}
 	}else if(event.type=="selrel"){
 		//根据id查相关
 		try{

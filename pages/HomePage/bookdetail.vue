@@ -11,7 +11,7 @@
 					:src="book.book_picture"></u-image>
 					<view slot="title" class="u-flex-column" style="font-size: 10px;margin-left: 15px;">
 						<span>作者：{{book.author}}</span>
-						<span>标签：{{book.book_name}}</span>
+						<!-- <span>标签：{{book.book_name}}</span> -->
 						<span>分卷：{{book.sub}}</span>
 						<span>章节：{{book.art}}</span>
 						<span>字数：{{book.num}}</span>
@@ -233,7 +233,7 @@
 				uniCloud.callFunction({
 					name:'Book',
 					data:{
-						type: 'selbyid',
+						type: 'selbyidcount',
 						_id: id
 					}
 				}).then(res=>{
@@ -594,6 +594,8 @@
 					this.article.article_type = "R"
 				}else if(type=='sub'){
 					this.article.article_type = "S"
+				}else if(type=='art'){
+					this.article.article_type = "A"
 				}
 				this.article.book_id = this._id
 				uniCloud.callFunction({

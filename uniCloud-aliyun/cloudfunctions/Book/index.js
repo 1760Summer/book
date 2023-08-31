@@ -37,6 +37,29 @@ exports.main = async (event, context) => {
 		//根据id查询作品
 		try{
 			const book = db.collection('Book').where({_id:event._id}).getTemp()
+			const user = db.collection('User').where({_id:book.book_author}).getTemp()
+			const res = await db.collection(book,user)
+			.get()
+			return res
+		}catch(e){
+			console.log(e)
+		}
+	}else if(event.type=="selbyidcount"){
+		//根据id查询作品
+		try{
+			const book = db.collection('Book').where({_id:event._id}).getTemp()
+			const article = db.collection('Article').where("article_type!='R'").getTemp()
+			const user = db.collection('User').where({_id:book.book_author}).getTemp()
+			const res = await db.collection(book,user,article)
+			.get()
+			return res
+		}catch(e){
+			console.log(e)
+		}
+	}else if(event.type=="selbyname"){
+		//根据书名查询作品
+		try{
+			const book = db.collection('Book').where(`${new RegExp(event.book_name, 'i')}.test(book_name)`).getTemp()
 			const article = db.collection('Article').where("article_type!='R'").getTemp()
 			const user = db.collection('User').where({_id:event.book_author}).getTemp()
 			const res = await db.collection(book,user,article)

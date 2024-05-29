@@ -57,6 +57,11 @@
 		"style": {
 			"navigationBarTitleText": ""
 		}
+	},{
+		"path": "pages/Find/read2",
+		"style": {
+			"navigationBarTitleText": ""
+		}
 	}
 	],
 	"tabBar": {

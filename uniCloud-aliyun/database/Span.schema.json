@@ -1,0 +1,31 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"span_name":{
+			"bsonType": "string",
+			"description": "标签名称"
+		},
+		"span_ctime": {
+			"bsonType": "string",
+			"description": "创建时间"
+		},
+		"sys_user": {
+			"bsonType": "string",
+			"description": "修改人"
+		},
+		"sys_time": {
+			"bsonType": "string",
+			"description": "修改时间"
+		}
+	}
+}

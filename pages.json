@@ -38,6 +38,11 @@
 			"navigationBarTitleText": "章节详情"
 		}
 	},{
+		"path": "pages/HomePage/content2",
+		"style": {
+			"navigationBarTitleText": "章节详情"
+		}
+	},{
 		"path": "pages/My/login",
 		"style": {
 			"navigationBarTitleText": "注册/登录"
@@ -55,12 +60,12 @@
 	},{
 		"path": "pages/Find/read",
 		"style": {
-			"navigationBarTitleText": ""
+			"navigationBarTitleText": "阅读模式（废弃）"
 		}
 	},{
 		"path": "pages/Find/read2",
 		"style": {
-			"navigationBarTitleText": ""
+			"navigationBarTitleText": "阅读模式"
 		}
 	}
 	],

@@ -1,3 +1,4 @@
+<!--阅读模式（废弃）-->
 <template>
 	<view class="zai-read-box skin" :class="skinValue"> 
 		<!--封面层-->

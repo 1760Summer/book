@@ -477,21 +477,21 @@
 			GetContent(index,index2){
 				var article_id = this.subart[index].children[index2]._id
 				uni.navigateTo({
-					url: '/pages/HomePage/content?_id='+article_id
+					url: '/pages/HomePage/content2?_id='+article_id
 				});
 			},
 			//未分卷章节
 			GetContent3(index){
 				var article_id = this.subart[index]._id
 				uni.navigateTo({
-					url: '/pages/HomePage/content?_id='+article_id
+					url: '/pages/HomePage/content2?_id='+article_id
 				});
 			},
 			//点击相关
 			GetContent2(index){
 				var article_id = this.rel[index]._id
 				uni.navigateTo({
-					url: '/pages/HomePage/content?_id='+article_id
+					url: '/pages/HomePage/content2?_id='+article_id
 				});
 			},
 			//点击悬浮按钮

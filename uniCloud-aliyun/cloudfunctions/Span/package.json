@@ -1,9 +1,23 @@
 {
-  "name": "Span",
-  "dependencies": {
-    "vk-unicloud-api-time": "file:../../../uni_modules/vk-unicloud-api-time/uniCloud/cloudfunctions/common/vk-unicloud-api-time"
-  },
-  "extensions": {
-    "uni-cloud-jql": {}
-  }
+    "name": "Span",
+    "description": "标签相关云函数(不能加注释！！！具体参考：https://doc.dcloud.net.cn/uniCloud/cf-functions.html#cloudfunction-config)",
+    "dependencies": {
+		"vk-unicloud-api-time": "file:../../../uni_modules/vk-unicloud-api-time/uniCloud/cloudfunctions/common/vk-unicloud-api-time"
+    },
+    "extensions": {
+		"uni-cloud-jql": {}
+    },
+	"cloudfunction-config": {
+		"memorySize": 512,
+		"timeout": 5,
+	
+		"triggers": [{
+			"name": "",
+			"type": "",
+			"config": ""
+		}],
+		"path": "",
+		"runtime": "Nodejs14", 
+		"keepRunningAfterReturn": true 
+	}
 }

@@ -196,6 +196,7 @@
 						this.list[i].sub = count3
 						this.list[i].art = count1
 						this.list[i].num = count2
+						console.log(this.list)
 					}
 				})
 			}

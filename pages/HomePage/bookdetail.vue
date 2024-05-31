@@ -597,6 +597,7 @@
 				}else if(type=='art'){
 					this.article.article_type = "A"
 				}
+				this.article.article_number = 0
 				this.article.book_id = this._id
 				uniCloud.callFunction({
 					name: 'Article',

@@ -2,7 +2,7 @@
 <template>
 	<view class="home">
 		<!--导航栏-->
-		<u-navbar :autoBack="true" :placeholder="true" bgColor="">
+		<u-navbar :autoBack="true" :placeholder="true" bgColor="" :title="article.article_name">
 			<view slot="right" style="display: flex;">
 				<span style="align-self: center; margin-right: 20px;">{{article.article_number}}字</span>
 				<span style="align-self: center;" @click="Synchronization">存档</span>
@@ -54,6 +54,9 @@
 					}
 				}).then(res=>{
 					this.article = res.result.data[0]
+					if(!this.article.article_number){
+						this.article.article_number = 0;
+					}
 					delete this.article._id//删除属性_id，修改不能带_id
 				})
 			},
@@ -73,15 +76,14 @@
 					})
 				})
 			},
-			//统计字数
-			CountNumber(e){
-				this.article.article_number = e.detail.text.replace(/<\/?.+?\/?>|\r|\n|\s*/g,"").length
-				this.article.article_content = e.detail.html
-			},
 			//已编辑的内容
 			inputOver(e) {
 			    // 可以在此处获取到编辑器已编辑的内容
 			    console.log("==== inputOver :", e);
+				//统计字数
+				this.article.article_number = e.text.replace(/<\/?.+?\/?>|\r|\n|\s*/g,"").length
+				//内容赋值
+				this.article.article_content = e.html
 			},
 			//超出最大限制
 			overMax(e) {

@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
 			console.log(e)
 		}
 	}else if(event.type=="selrel"){
-		//根据id查相关
+		//根据book_id只取相关
 		try{
 			const res = await db.collection('Article')
 			.where({book_id:event._id,article_type:'R'})
@@ -38,7 +38,7 @@ exports.main = async (event, context) => {
 			console.log(e)
 		}
 	}else if(event.type=="selbyid"){
-		//根据id查询分卷/章节（content）
+		//根据book_id查询分卷/章节（content）
 		try{
 			const res = await db.collection('Article')
 			.where({_id:event._id})

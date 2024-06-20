@@ -113,14 +113,14 @@
 		</u-popup>
 		<!--长按分卷弹窗-->
 		<u-popup :show="showsublong" mode="right" :round="10" @close="CloseSubLong">
-			<u-button @click="">排序</u-button>
+			<u-button @click="SubOrd">排序</u-button>
 			<u-button @click="UpdSubName">重命名</u-button>
 			<u-button @click="SelSubDetail">详细信息</u-button>
 			<u-button type="error" @click="DelSub">删除分卷</u-button>
 		</u-popup>
 		<!--长按章节弹窗-->
 		<u-popup :show="showartlong" mode="right" :round="10" @close="CloseArtLong">
-			<u-button @click="">排序</u-button>
+			<u-button @click="ArtOrd">排序</u-button>
 			<u-button @click="UpdArtName">重命名</u-button>
 			<u-button @click="MoveToSub">移至分卷</u-button>
 			<u-button @click="SelArtDetail">详细信息</u-button>
@@ -128,7 +128,7 @@
 		</u-popup>
 		<!--长按相关弹窗-->
 		<u-popup :show="showrellong" mode="right" :round="10" @close="CloseRelLong">
-			<u-button @click="">排序</u-button>
+			<u-button @click="RelOrd">排序</u-button>
 			<u-button @click="UpdRelName">重命名</u-button>
 			<u-button @click="SelRelDetail">详细信息</u-button>
 			<u-button type="error" @click="DelRel">删除</u-button>
@@ -165,6 +165,12 @@
 				</view>
 			</u-popup>
 		</view>
+		<!--排序-->
+		<view>
+			<u-popup :show="showsubord" overlayOpacity="0.1" :round="10" mode="center" >
+				<HM-dragSorts ref="dragSorts" :list="subord" :autoScroll="true" :feedbackGenerator="true" :listHeight="300" :rowHeight="55" @confirm="confirmSub"></HM-dragSorts>	
+			</u-popup>
+		</view>
 	</view>
 </template>
 
@@ -178,8 +184,11 @@
 				list: ['目录', '相关'],
 				current:0,
 				subart:[],//目录
+				subord:[],//分卷排序
+				artord:[],//章节排序
 				selectsub:[],//选择分卷
 				rel: [],//相关
+				relord:[],//相关排序
 				fabcontent:[
 					{text:'新建分卷',iconPath:'/static/img/folder.png',selectedIconPath:'/static/img/folderHL.png',active: false},
 					{text:'新建章节',iconPath:'/static/img/file.png',selectedIconPath:'/static/img/fileHL.png',active: false},
@@ -191,6 +200,9 @@
 				showsublong: false,
 				showartlong: false,
 				showrellong: false,
+				showsubord: false,
+				showartord: false,
+				showrelord: false,
 				updname: false,
 				showinfo: false,
 				showmove: false,
@@ -306,6 +318,24 @@
 					count = count + this.subart[index].children[i].article_number
 				}
 				this.article.num = count
+			},
+			//排序
+			SubOrd(){
+				console.log(this.subart)
+				for(var i=0;i<this.subart.length;i++){
+					this.subord.push({
+						book_id: this.subord[i].book_id,
+						article_name: this.subord[i].article_name
+					})
+				}
+				//this.showartord = true;
+			},
+			confirmSub(e){
+				console.log('=== confirm start ===');
+				console.log("被拖动行: " + JSON.stringify(e.moveRow));
+				console.log('原始下标：',e.index);
+				console.log('移动到：',e.moveTo);
+				console.log('=== confirm end ===');
 			},
 			//重命名
 			UpdSubName(){

@@ -14,15 +14,26 @@ const vk = {
 exports.main = async (event, context) => {
 	//判断类型
 	if(event.type=="sel"){
-		//查询全部作品
+		//查询全部作品（无关联）
 		try{
 			const res = await db.collection('Book').get()
 			return res
 		}catch(e){
 			console.log(e)
 		}
+	}else if(event.type=="selbyid"){
+		//根据book_id查询作品(不含章节)
+		try{
+			const book = db.collection('Book').where({_id:event._id}).getTemp()
+			const user = db.collection('User').where({_id:book.book_author}).getTemp()
+			const res = await db.collection(book,user)
+			.get()
+			return res
+		}catch(e){
+			console.log(e)
+		}
 	}else if(event.type=="selbyauthor"){
-		//根据作者查询作品
+		//根据book_author查询作品
 		try{
 			const book = db.collection('Book').where({book_author:event.book_author}).getTemp()
 			const article = db.collection('Article').where("article_type!='R'").getTemp()
@@ -33,19 +44,8 @@ exports.main = async (event, context) => {
 		}catch(e){
 			console.log(e)
 		}
-	}else if(event.type=="selbyid"){
-		//根据id查询作品
-		try{
-			const book = db.collection('Book').where({_id:event._id}).getTemp()
-			const user = db.collection('User').where({_id:book.book_author}).getTemp()
-			const res = await db.collection(book,user)
-			.get()
-			return res
-		}catch(e){
-			console.log(e)
-		}
 	}else if(event.type=="selbyidcount"){
-		//根据id查询作品
+		//根据book_id查询作品
 		try{
 			const book = db.collection('Book').where({_id:event._id}).getTemp()
 			const article = db.collection('Article').where("article_type!='R'").getTemp()
@@ -57,7 +57,7 @@ exports.main = async (event, context) => {
 			console.log(e)
 		}
 	}else if(event.type=="selbyname"){
-		//根据书名查询作品
+		//根据book_name查询作品（没必要关联章节，改！！！）
 		try{
 			const book = db.collection('Book').where(`${new RegExp(event.book_name, 'i')}.test(book_name)`).getTemp()
 			const article = db.collection('Article').where("article_type!='R'").getTemp()

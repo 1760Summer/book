@@ -191,7 +191,6 @@
 					付费章节
 					<view style="padding: 5px 15px;background-color: #eee;">去购买</view>
 				</view>
-				
 			</view>
 			<view class="bottom-bar">
 				<!-- 时间 -->
@@ -1968,7 +1967,7 @@
 						console.log(chapterId+"====="+this.textList.length)
 						if (chapterId<=this.textList.length) {
 							this.text = this.textList[chapterId-1].text;
-							this.tmpChapter.text = `<p>${chapterId}</p>` + this.text //模拟数据
+							this.tmpChapter.text = this.text //模拟数据 `<p>${chapterId}</p>` + this.text
 							// 根据业务实际情况判断该用户是否可阅读,逻辑后端判断
 							this.tmpChapter.canRead = true
 							//console.log("true")

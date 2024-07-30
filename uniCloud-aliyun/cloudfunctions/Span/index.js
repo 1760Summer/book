@@ -6,13 +6,18 @@ const vk = {
 	pubfn : require('vk-unicloud-api-time')
 }
 exports.main = async (event, context) => {
-	if(event.type=="sel"){
-		//查询全部标签
-		try{
-			const res = await db.collection('Span').get()
-			return res
-		}catch(e){
-			console.log(e)
-		}
+	var type = event.type;
+	switch (type){
+		case "sel"://查询全部标签
+		    try{
+		    	const res = await db.collection('Span').get()
+		    	return res
+		    }catch(e){
+		    	console.log(e)
+		    }
+			break;
+		default:
+			console.log("方法名不对，请检查！")
+			break;
 	}
 };

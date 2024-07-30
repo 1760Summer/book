@@ -60,6 +60,11 @@
     "h5" : {
         "devServer" : {
             "port" : 8082
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
         }
     }
 }

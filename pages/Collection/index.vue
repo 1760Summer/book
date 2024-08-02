@@ -1,5 +1,5 @@
 <template>
-	<view>还没想好</view>
+	<view>还没想好!</view>
 </template>
 
 <script>
